@@ -238,6 +238,8 @@ public class GitlabAPIIT {
 
         assertNotNull(fork);
 
+        assertEquals(project.getId(),fork.getForkedFrom().getId());
+
         api.deleteProject(project.getId());
         api.deleteProject(fork.getId());
 
