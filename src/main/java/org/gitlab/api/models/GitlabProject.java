@@ -125,6 +125,9 @@ public class GitlabProject {
     @JsonProperty("is_printing_merge_request_link_enabled")
     private Boolean printingMergeRequestLinkEnabled;
 
+    @JsonProperty("forked_from_project")
+    private GitlabProject forkedFrom;
+
     public Integer getId() {
         return id;
     }
@@ -461,4 +464,26 @@ public class GitlabProject {
         this.printingMergeRequestLinkEnabled = printingMergeRequestLinkEnabled;
     }
 
+    public GitlabProject getForkedFrom() {
+        return forkedFrom;
+    }
+
+    public void setForkedFrom(GitlabProject forkedFrom) {
+        this.forkedFrom = forkedFrom;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        GitlabProject that = (GitlabProject) o;
+
+        return id != null ? id.equals(that.id) : that.id == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
 }
