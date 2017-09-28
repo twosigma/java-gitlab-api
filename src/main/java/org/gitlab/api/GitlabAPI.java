@@ -1168,7 +1168,7 @@ public class GitlabAPI {
      * @throws IOException on gitlab api call error
      */
     public GitlabMergeRequest getMergeRequestByIid(Serializable projectId, Integer mergeRequestIid) throws IOException {
-        String tailUrl = GitlabProject.URL + "/" + sanitizeProjectId(projectId) + GitlabMergeRequest.URL + "/" + mergeRequestIid;
+	String tailUrl = GitlabProject.URL + "/" + sanitizeProjectId(projectId) + GitlabMergeRequest.URL + "/" + mergeRequestIid;
         return retrieve().to(tailUrl, GitlabMergeRequest.class);
     }
 
@@ -1761,6 +1761,13 @@ public class GitlabAPI {
 
     public List<GitlabIssue> getIssues(GitlabProject project) throws IOException {
         String tailUrl = GitlabProject.URL + "/" + sanitizeProjectId(project.getId()) + GitlabIssue.URL + PARAM_MAX_ITEMS_PER_PAGE;
+        return retrieve().getAll(tailUrl, GitlabIssue[].class);
+    }
+
+    public List<GitlabIssue> getIssues(GitlabProject project, GitlabMilestone milestone) throws IOException {
+        String tailUrl = GitlabProject.URL + "/" + sanitizeProjectId(project.getId())
+                + GitlabMilestone.URL + "/" + sanitizeMilestoneId(milestone.getId())
+                + GitlabIssue.URL + PARAM_MAX_ITEMS_PER_PAGE;
         return retrieve().getAll(tailUrl, GitlabIssue[].class);
     }
 
